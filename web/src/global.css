@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+    @apply bg-white text-text-primary
+}
+
+button{
+    @apply rounded-lg bg-surface-secondary hover:bg-surface-secondary-hover border-2 border-transparent hover:border-brand-hover
+}
+
+.btn-primary {
+    @apply rounded-lg bg-brand hover:bg-brand-hover border-2 border-transparent hover:border-text-primary
+}
