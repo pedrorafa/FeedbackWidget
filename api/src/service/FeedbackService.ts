@@ -5,13 +5,21 @@ import {
   IFeedbackService,
   RequestSubmitFeedback,
 } from "./interface/IFeedbackService";
+import { injectable, inject } from "inversify";
+import "reflect-metadata";
+import { injectionTypes } from "../injectionTypes";
 
+@injectable()
 export class FeedbackService implements IFeedbackService {
   private _repository: IFeedbackRepository;
   private _emailService: IEmailService;
-  constructor(repository: IFeedbackRepository, emailService: IEmailService) {
-    this._repository = repository;
+
+  public constructor(
+    @inject(injectionTypes.EmailService) emailService: IEmailService,
+    @inject(injectionTypes.FeedbackRepository) repository: IFeedbackRepository
+  ) {
     this._emailService = emailService;
+    this._repository = repository;
   }
 
   async submit({
@@ -24,7 +32,10 @@ export class FeedbackService implements IFeedbackService {
 
     let feedback = await this._repository.create(type, comment, screenshot);
 
-    await this._emailService.send({});
+    await this._emailService.send({
+      content: comment,
+      email: "pedrorafag00@gmail.com",
+    });
 
     return feedback;
   }
