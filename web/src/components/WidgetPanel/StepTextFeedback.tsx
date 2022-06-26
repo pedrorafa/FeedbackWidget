@@ -1,26 +1,27 @@
 import { ArrowLeft } from "phosphor-react"
 import { WidgetHeader } from "../WidgetHeader"
-import { FormEvent, useState } from "react"
+import { useState } from "react"
 import { ScreenshotButton } from "../Shared/ScreenshotButton"
 import { feedbackInfo, FeedbackType } from "./StepTypeFeedback"
 
 interface StepTextFeedbackProps {
-    backToFeedbackType: () => void
+    backToFeedbackType: () => void,
+    sendFeedback: (
+        type: string | undefined,
+        comment: string | undefined,
+        screenshot: string | undefined) => void,
     feedbackType: FeedbackType
 }
 
 
-export function StepTextFeedback({ backToFeedbackType: onBackToFeedbackType, feedbackType }: StepTextFeedbackProps) {
+export function StepTextFeedback(
+    {
+        backToFeedbackType: onBackToFeedbackType,
+        sendFeedback: onSendFeedback, feedbackType
+    }: StepTextFeedbackProps) {
 
-    const [screenshot, setScreenshot] = useState<string | null>()
+    const [screenshot, setScreenshot] = useState<string | undefined>()
     const [feedbackText, setFeedbackText] = useState<string>()
-
-    const sendFeedback = (e: FormEvent) => {
-        e.preventDefault()
-
-        console.log(feedbackText)
-        console.log(screenshot)
-    }
 
     return (
         <>
@@ -31,7 +32,10 @@ export function StepTextFeedback({ backToFeedbackType: onBackToFeedbackType, fee
             >
                 <ArrowLeft />
             </button>
-            <form onSubmit={sendFeedback} className="flex flex-col gap-2 w-full min-w-[300px] mt-4">
+            <form onSubmit={(e) => {
+                e.preventDefault();
+                onSendFeedback(feedbackText, feedbackType.toString(), screenshot)
+            }} className="flex flex-col gap-2 w-full mt-4">
                 <textarea
                     onChange={(e) => setFeedbackText(e.target.value)}
                     className="min-h-[112px] bg-surface-secondary scrollbar scrollbar-thin scrollbar-thumb-surface-primary scrollbar-thumb-surface-secondary-hover"

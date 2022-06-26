@@ -3,7 +3,7 @@ import { Camera, SpinnerGap, Trash } from "phosphor-react"
 import { useState } from "react"
 
 interface ScreenshotButtonProps {
-    onPrintScreen: (base64: string | null) => void
+    onPrintScreen: (base64: string | undefined) => void
 }
 
 
@@ -23,7 +23,7 @@ export function ScreenshotButton({ onPrintScreen }: ScreenshotButtonProps) {
     }
 
     const cleanScreenshot = () => {
-        onPrintScreen(null)
+        onPrintScreen(undefined)
         setScreenshot(null)
     }
 

@@ -5,7 +5,7 @@ import { IFeedbackService } from "./service/interface/IFeedbackService";
 
 export const router = express.Router();
 
-const basePath = "/feedback";
+const basePath = "/feedbacks";
 
 const feedbackService = container.get<IFeedbackService>(injectionTypes.FeedbackService);
 
