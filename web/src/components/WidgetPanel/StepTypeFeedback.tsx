@@ -33,7 +33,7 @@ export function StepTypeFeedback({ setFeedbackType }: StepTypeFeedbackProps) {
                 {Object.entries(feedbackInfo).map(([k, value]) => {
                     return (
                         <button key={k}
-                            className="flex flex-col items-center gap-2 py-5 w-24 h-28"
+                            className="flex flex-col items-center gap-2 py-5 w-24 min-h-full"
                             onClick={() => setFeedbackType(k as FeedbackType)}
                         >
                             <img src={value.img}></img>

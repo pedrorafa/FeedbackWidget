@@ -7,7 +7,7 @@ import { StepSuccessFeedback } from "./StepSuccessFeedback"
 export function WidgetPanel() {
 
     const [feedbackType, setFeedbackType] = useState<FeedbackType | null>(null)
-    const [feedbackSended, setFeedbackSended] = useState<boolean>(false)
+    const [feedbackSended, setFeedbackSended] = useState<boolean>(true)
 
     const sendFeedback = (
         type: string | undefined,
@@ -29,30 +29,31 @@ export function WidgetPanel() {
             })
     }
     return (
-        <div className="bg-surface-primary relative p-4 rounded-2xl flex flex-col items-center shadow-lg min-w-[320px] w-[calc(100vw-2rem)] md:w-auto">
-
-            {!feedbackSended && !feedbackType &&
-                <StepTypeFeedback
-                    setFeedbackType={setFeedbackType} />
-            }
-            {!feedbackSended && !!feedbackType &&
-                <StepTextFeedback
-                    feedbackType={feedbackType}
-                    sendFeedback={sendFeedback}
-                    backToFeedbackType={() => setFeedbackType(null)}
-                />
-            }
-            {feedbackSended &&
-                <StepSuccessFeedback
-                    backToFeedbackType={() => {
-                        setFeedbackSended(false)
-                        setFeedbackType(null)
-                    }}
-                />
-            }
-            <footer className="text-sm text-text-secondary mt-4">
-                NWL 2022
-            </footer>
+        <div className="flex flex-col items-center bg-surface-primary relative p-4 rounded-2xl shadow-lg w-[calc(100vw-2rem)] md:w-auto min-h-[264px]">
+            <div className="flex flex-col items-center min-w-[320px]">
+                {!feedbackSended && !feedbackType &&
+                    <StepTypeFeedback
+                        setFeedbackType={setFeedbackType} />
+                }
+                {!feedbackSended && !!feedbackType &&
+                    <StepTextFeedback
+                        feedbackType={feedbackType}
+                        sendFeedback={sendFeedback}
+                        backToFeedbackType={() => setFeedbackType(null)}
+                    />
+                }
+                {feedbackSended &&
+                    <StepSuccessFeedback
+                        backToFeedbackType={() => {
+                            setFeedbackSended(false)
+                            setFeedbackType(null)
+                        }}
+                    />
+                }
+                <footer className="text-sm text-text-secondary absolute bottom-2">
+                    NWL 2022
+                </footer>
+            </div>
         </div>
     )
 }
